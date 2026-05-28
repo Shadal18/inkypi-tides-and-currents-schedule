@@ -23,9 +23,8 @@ To update the plugin on your InkyPi device:
    ```bash
    git pull origin main && \
    if [ -d tides_and_currents_schedule ]; then \
-     shopt -s dotglob nullglob && \
-     mv tides_and_currents_schedule/* . && \
-     rmdir tides_and_currents_schedule; \
+     rsync -a tides_and_currents_schedule/ ./ && \
+     rm -rf tides_and_currents_schedule; \
    fi && \
    sudo systemctl restart inkypi.service
    ```

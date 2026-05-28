@@ -1,0 +1,184 @@
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 12px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.tide-schedule-dashboard {
+  font-family: "Jost", sans-serif;
+  width: min(92vw, 800px);
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 0.35rem 0 0.5rem;
+  display: grid;
+  grid-template-rows: auto auto minmax(150px, 29vh) 1fr;
+  gap: 0.3rem;
+  align-content: start;
+  overflow: hidden;
+}
+
+.last-refresh {
+  text-align: right;
+  font-size: clamp(0.68rem, 1.2vw, 0.8rem);
+  color: #666;
+  margin-bottom: 0;
+  line-height: 1.1;
+}
+
+.header {
+  margin-bottom: 0;
+}
+
+.title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  text-align: center;
+  color: #000;
+  margin-bottom: 0.05rem;
+  line-height: 1.05;
+}
+
+.location-name {
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  color: #333;
+  margin-top: 0.08rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.tide-graph-container.centered {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+  min-height: 150px;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.tide-graph-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  box-sizing: border-box;
+}
+
+.tides-info.stretched-table {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.tide-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.tide-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px solid #000;
+  padding: 0.45rem 0;
+  align-items: center;
+  color: #000;
+  font-size: clamp(0.92rem, 1.8vw, 1.1rem);
+  line-height: 1.1;
+}
+
+.tide-header {
+  font-weight: 700;
+  background-color: #eee;
+  border-bottom: 2px solid #000;
+  padding: 0.42rem 0;
+}
+
+.tide-type,
+.tide-time,
+.tide-height {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.no-data {
+  font-style: italic;
+  color: #555;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* Compact mode when there are extra tide rows */
+.tide-schedule-dashboard.compact {
+  grid-template-rows: auto auto minmax(125px, 23vh) 1fr;
+  gap: 0.2rem;
+  padding-top: 0.2rem;
+}
+
+.tide-schedule-dashboard.compact .title {
+  font-size: clamp(1.45rem, 3.2vw, 2rem);
+}
+
+.tide-schedule-dashboard.compact .location-name {
+  font-size: clamp(0.92rem, 1.8vw, 1.1rem);
+}
+
+.tide-schedule-dashboard.compact .last-refresh {
+  font-size: clamp(0.62rem, 1vw, 0.72rem);
+}
+
+.tide-schedule-dashboard.compact .tide-row {
+  padding: 0.3rem 0;
+  font-size: clamp(0.82rem, 1.55vw, 0.96rem);
+}
+
+.tide-schedule-dashboard.compact .tide-header {
+  padding: 0.28rem 0;
+}
+
+.tide-schedule-dashboard.compact .tide-graph-container.centered {
+  min-height: 125px;
+}
+
+@media (max-height: 500px) {
+  .tide-schedule-dashboard {
+    grid-template-rows: auto auto minmax(110px, 21vh) 1fr;
+    gap: 0.16rem;
+    padding-top: 0.15rem;
+  }
+
+  .title {
+    font-size: clamp(1.35rem, 3vw, 1.7rem);
+  }
+
+  .location-name {
+    font-size: clamp(0.85rem, 1.7vw, 1rem);
+  }
+
+  .tide-row {
+    padding: 0.22rem 0;
+    font-size: 0.82rem;
+  }
+
+  .tide-header {
+    padding: 0.2rem 0;
+  }
+
+  .last-refresh {
+    font-size: 0.62rem;
+  }
+}

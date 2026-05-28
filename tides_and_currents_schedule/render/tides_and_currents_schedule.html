@@ -1,0 +1,131 @@
+{% extends "plugin.html" %} {% block head %} {{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tides_schedule.css') }}" />
+{% endblock %} {% block content %}
+<div class="tide-schedule-dashboard {% if tides|length > 3 %}compact{% endif %}">
+  {% if plugin_settings.displayRefreshTime == "true" %}
+  <div class="last-refresh">Last refresh: {{ last_refresh_time }}</div>
+  {% endif %}
+
+  <div class="header">
+    <div class="title">{{ title }}</div>
+    {% if plugin_settings.station_id and stations_list %} {% for station in stations_list %} {% if station.id ==
+    plugin_settings.station_id %}
+    <div class="location-name">{{ station.name }}</div>
+    {% endif %} {% endfor %} {% endif %}
+  </div>
+
+  <div class="tide-graph-container centered">
+    {% if tide_graph and tide_graph.timestamps and tide_graph.levels %}
+    <canvas id="tideGraph"></canvas>
+    {% else %}
+    <div class="no-data">No tide graph data available.</div>
+    {% endif %}
+  </div>
+
+  <div class="tides-info stretched-table">
+    {% if tides %}
+    <div class="tide-table">
+      <div class="tide-row tide-header">
+        <div class="tide-type">Type</div>
+        <div class="tide-time">Time</div>
+        <div class="tide-height">Height (ft)</div>
+      </div>
+      {% for tide in tides %}
+      <div class="tide-row">
+        <div class="tide-type">{{ tide.type }}</div>
+        <div class="tide-time">{{ tide.time }}</div>
+        <div class="tide-height">{{ "%.2f"|format(tide.height) }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-data">No tide data available for the selected dates.</div>
+    {% endif %}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const canvas = document.getElementById("tideGraph")
+    const ctx = canvas?.getContext("2d")
+    if (!ctx) return
+
+    const labels = [
+      {% for ts in tide_graph.timestamps %}
+        "{{ ts }}"{% if not loop.last %}, {% endif %}
+      {% endfor %}
+    ]
+
+    const dataPoints = [
+      {% for level in tide_graph.levels %}
+        {{ level }}{% if not loop.last %}, {% endif %}
+      {% endfor %}
+    ]
+
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [{
+          label: "Water Level (ft)",
+          data: dataPoints,
+          borderColor: "rgba(0, 0, 0, 1)",
+          backgroundColor: "rgba(0, 0, 0, 0.16)",
+          borderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            top: 4,
+            right: 6,
+            bottom: 0,
+            left: 6
+          }
+        },
+        scales: {
+          x: {
+            display: true,
+            title: { display: false },
+            ticks: {
+              maxRotation: 45,
+              minRotation: 45,
+              autoSkip: true,
+              maxTicksLimit: 8,
+              color: "#000",
+              font: {
+                size: 11
+              }
+            },
+            grid: { color: "#ccc" }
+          },
+          y: {
+            display: true,
+            title: { display: false },
+            beginAtZero: false,
+            ticks: {
+              color: "#000",
+              font: {
+                size: 11
+              }
+            },
+            grid: { color: "#ccc" }
+          }
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        },
+        animation: { duration: 0 }
+      }
+    })
+  })
+</script>
+{% endblock %}

@@ -1,0 +1,6 @@
+{
+  "display_name": "Tides & Currents",
+  "id": "tides_and_currents_schedule",
+  "class": "TidesSchedule",
+  "repository": "https://github.com/shadal18/InkyPi-Tides-And-Currents-Schedule"
+}

@@ -1,0 +1,85 @@
+<div class="form-group">
+  <label for="station_id" class="form-label">NOAA CO-OPS Station ID:</label>
+  <input
+    type="text"
+    id="station_id"
+    name="station_id"
+    class="form-input"
+    placeholder="Enter Station ID (e.g., 8726520)"
+    required
+  />
+  <small>
+    Find your station ID&nbsp;
+    <a href="https://tidesandcurrents.noaa.gov/stations.html" target="_blank" rel="noopener noreferrer"> here </a>.
+  </small>
+</div>
+
+<div class="form-group">
+  <label for="title" class="form-label">Custom Title (Optional):</label>
+  <input type="text" id="title" name="title" class="form-input" placeholder="E.g., Local Tide Schedule" />
+</div>
+
+<hr style="border: 0; border-top: 1px solid rgba(0, 0, 0, 0.12); margin: 24px 0 18px" />
+
+<div class="form-group" style="margin-bottom: 20px">
+  <div
+    style="
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #555;
+      margin-bottom: 10px;
+    "
+  >
+    Plugin Repository
+  </div>
+
+  <div style="background: #f8f9fa; border: 1px solid #dcdfe3; border-radius: 10px; padding: 14px 16px">
+    <a
+      href="https://github.com/shadal18/inkypi-tides-and-currents-schedule"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="
+        color: #0d6efd;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        word-break: break-word;
+        display: inline-block;
+        margin-bottom: 6px;
+      "
+    >
+      github.com/shadal18/inkypi-tides-and-currents-schedule
+    </a>
+
+    <div style="font-size: 0.9rem; color: #666">Setup help, updates, release notes, and source code.</div>
+  </div>
+</div>
+
+<script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typeof pluginSettings !== "undefined" && pluginSettings) {
+      const stationId = document.getElementById("station_id")
+      const title = document.getElementById("title")
+
+      if (stationId) {
+        stationId.value = pluginSettings.station_id || ""
+      }
+
+      if (title) {
+        title.value = pluginSettings.title || ""
+      }
+    }
+
+    if (typeof kofiWidgetOverlay !== "undefined") {
+      kofiWidgetOverlay.draw("shadal", {
+        type: "floating-chat",
+        "floating-chat.donateButton.text": "Buy Coffee",
+        "floating-chat.donateButton.background-color": "#00b9fe",
+        "floating-chat.donateButton.text-color": "#fff",
+      })
+    }
+  })
+</script>

@@ -2,6 +2,8 @@
 
 A custom InkyPi plugin that shows NOAA tide schedule data with a clean, glanceable layout, a tide graph, and configurable station-based output.
 
+_Tides and Currents Schedule_ is a plugin for [InkyPi](https://github.com/fatihak/InkyPi) that renders upcoming tides and currents times for a chosen location on your display.
+
 ## Install
 
 Use the InkyPi plugin installer with the plugin ID and this repository URL, following the install pattern used by InkyPi plugins.

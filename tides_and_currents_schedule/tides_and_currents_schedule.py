@@ -5,9 +5,7 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 import xml.etree.ElementTree as ET
 
-
 logger = logging.getLogger(__name__)
-
 
 COOPS_STATIONS_XML_URL = "https://opendap.co-ops.nos.noaa.gov/stations/stationsXML.jsp"
 

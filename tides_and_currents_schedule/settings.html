@@ -1,79 +1,411 @@
-<div class="form-group">
-  <label for="station_id" class="form-label">NOAA CO-OPS Station ID:</label>
-  <input
-    type="text"
-    id="station_id"
-    name="station_id"
-    class="form-input"
-    placeholder="Enter Station ID (e.g., 8726520)"
-    required
-  />
-  <small>
-    Find your station ID using the
-    <a href="https://tidesandcurrents.noaa.gov/stations.html" target="_blank" rel="noopener noreferrer">
-      NOAA station search
-    </a>
-    or the
-    <a href="https://tidesandcurrents.noaa.gov/map/" target="_blank" rel="noopener noreferrer"> NOAA station map </a>.
-  </small>
-</div>
+<style>
+  :root {
+    --tc-bg: var(--background-color, var(--color-background, #f5f7fb));
+    --tc-bg-soft: var(--card-background-secondary, var(--color-surface-2, #eef2f7));
+    --tc-panel: var(--card-background, var(--color-surface, #ffffff));
+    --tc-panel-2: var(--card-background-hover, var(--color-surface-2, #f8fafc));
+    --tc-border: var(--border-color, rgba(15, 23, 42, 0.12));
+    --tc-text: var(--text-primary, var(--color-text, #0f172a));
+    --tc-text-muted: var(--text-secondary, var(--color-text-secondary, #475569));
+    --tc-text-soft: var(--text-muted, #64748b));
+    --tc-primary: var(--accent-color, #14b8a6);
+    --tc-info: var(--info-color, #3b82f6);
+    --tc-shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.08);
+    --tc-radius-xl: 18px;
+    --tc-radius-lg: 14px;
+  }
 
-<div class="form-group">
-  <label for="title" class="form-label">Custom Title (Optional):</label>
-  <input type="text" id="title" name="title" class="form-input" placeholder="E.g., Local Tide Schedule" />
-</div>
+  html.dark,
+  body.dark,
+  [data-theme="dark"],
+  html[data-theme="dark"] {
+    --tc-bg: var(--background-color, var(--color-background, #0f172a));
+    --tc-bg-soft: var(--card-background-secondary, var(--color-surface-2, #162033));
+    --tc-panel: var(--card-background, var(--color-surface, #111827));
+    --tc-panel-2: var(--card-background-hover, var(--color-surface-2, #172033));
+    --tc-border: var(--border-color, rgba(255, 255, 255, 0.1));
+    --tc-text: var(--text-primary, var(--color-text, #f8fafc));
+    --tc-text-muted: var(--text-secondary, var(--color-text-secondary, #cbd5e1));
+    --tc-text-soft: var(--text-muted, #94a3b8);
+    --tc-shadow-sm: 0 10px 28px rgba(0, 0, 0, 0.22);
+  }
 
-<hr style="border: 0; border-top: 1px solid rgba(0, 0, 0, 0.12); margin: 24px 0 18px" />
+  .tide-settings-container {
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--tc-text);
+  }
 
-<div class="form-group" style="margin-bottom: 20px">
-  <div
-    style="
-      font-size: 0.95rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #555;
-      margin-bottom: 10px;
-    "
-  >
-    Plugin Repository
-  </div>
+  .tc-shell {
+    display: grid;
+    gap: 18px;
+    margin-top: 8px;
+  }
 
-  <div style="background: #f8f9fa; border: 1px solid #dcdfe3; border-radius: 10px; padding: 14px 16px">
-    <a
-      href="https://github.com/shadal18/inkypi-tides-and-currents-schedule"
-      target="_blank"
-      rel="noopener noreferrer"
-      style="
-        color: #0d6efd;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 1rem;
-        word-break: break-word;
-        display: inline-block;
-        margin-bottom: 6px;
-      "
-    >
-      github.com/shadal18/inkypi-tides-and-currents-schedule
-    </a>
+  .tc-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--tc-radius-xl);
+    border: 1px solid var(--tc-border);
+    background:
+      radial-gradient(circle at top right, color-mix(in srgb, var(--tc-primary) 16%, transparent), transparent 34%),
+      radial-gradient(circle at bottom left, color-mix(in srgb, var(--tc-info) 12%, transparent), transparent 30%),
+      linear-gradient(180deg, color-mix(in srgb, var(--tc-panel) 92%, var(--tc-bg-soft) 8%), var(--tc-panel-2));
+    box-shadow: var(--tc-shadow-sm);
+    padding: 22px 22px 18px;
+  }
 
-    <div style="font-size: 0.9rem; color: #666">Setup help, updates, release notes, and source code.</div>
+  .tc-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tc-primary) 14%, transparent);
+    color: var(--tc-primary);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    border: 1px solid color-mix(in srgb, var(--tc-primary) 22%, transparent);
+  }
+
+  .tc-hero h2 {
+    margin: 0;
+    color: var(--tc-text);
+    font-size: 28px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  .tc-hero p {
+    margin: 10px 0 0;
+    max-width: 68ch;
+    color: var(--tc-text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .tc-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .tc-metric {
+    border: 1px solid var(--tc-border);
+    border-radius: var(--tc-radius-lg);
+    background: color-mix(in srgb, var(--tc-panel) 92%, var(--tc-bg) 8%);
+    padding: 14px 14px 12px;
+    min-width: 0;
+    box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 22%, transparent);
+  }
+
+  .tc-metric-label {
+    color: var(--tc-text-soft);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .tc-metric-value {
+    color: var(--tc-text);
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .tc-metric-sub {
+    color: var(--tc-text-muted);
+    font-size: 12px;
+    margin-top: 6px;
+  }
+
+  .tc-section,
+  .tc-link-card {
+    border: 1px solid var(--tc-border);
+    border-radius: var(--tc-radius-xl);
+    background: linear-gradient(180deg, var(--tc-panel), var(--tc-panel-2));
+    box-shadow: var(--tc-shadow-sm);
+    overflow: hidden;
+  }
+
+  .tc-section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--tc-border);
+  }
+
+  .tc-section-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    border: 1px solid var(--tc-border);
+    background: color-mix(in srgb, var(--tc-bg-soft) 65%, var(--tc-panel) 35%);
+  }
+
+  .tc-section-copy {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tc-section-title {
+    color: var(--tc-text);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .tc-section-subtitle {
+    color: var(--tc-text-muted);
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  .tc-section-body {
+    padding: 18px 20px 20px;
+  }
+
+  .tc-grid {
+    display: grid;
+    gap: 16px;
+  }
+
+  .tc-field {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .tc-label {
+    color: var(--tc-text-soft);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .tc-input,
+  .tide-settings-container input[type="text"] {
+    width: 100%;
+    min-height: 46px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid var(--tc-border);
+    background: var(--tc-panel);
+    color: var(--tc-text);
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 14%, transparent);
+  }
+
+  .tc-input::placeholder,
+  .tide-settings-container input::placeholder {
+    color: var(--tc-text-soft);
+    opacity: 1;
+  }
+
+  .tc-input:focus,
+  .tide-settings-container input:focus {
+    border-color: color-mix(in srgb, var(--tc-primary) 45%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--tc-primary) 14%, transparent);
+  }
+
+  .tc-note {
+    margin: 0;
+    color: var(--tc-text-muted);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .tc-note a {
+    color: var(--tc-primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .tc-note a:hover,
+  .tc-note a:focus-visible {
+    text-decoration: underline;
+    outline: none;
+  }
+
+  .tc-link-card {
+    padding: 16px 20px;
+  }
+
+  .tc-link-card a {
+    color: var(--tc-primary);
+    text-decoration: none;
+    font-weight: 700;
+    word-break: break-word;
+  }
+
+  .tc-link-card a:hover,
+  .tc-link-card a:focus-visible {
+    text-decoration: underline;
+    outline: none;
+  }
+
+  .tc-link-help {
+    margin-top: 8px;
+    color: var(--tc-text-muted);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .floatingchat-container-wrap,
+  .floatingchat-container-wrap-mobi {
+    left: unset !important;
+    right: 16px !important;
+    bottom: 16px !important;
+  }
+
+  .floating-chat-kofi-popup-iframe {
+    left: unset !important;
+    right: 16px !important;
+    bottom: 76px !important;
+  }
+
+  @media (max-width: 920px) {
+    .tc-metrics {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .tc-hero {
+      padding: 18px;
+    }
+
+    .tc-hero h2 {
+      font-size: 22px;
+    }
+
+    .tc-section-header {
+      padding: 16px;
+    }
+
+    .tc-section-body,
+    .tc-link-card {
+      padding: 16px;
+    }
+  }
+</style>
+
+<div class="tide-settings-container">
+  <div class="tc-shell">
+    <section class="tc-hero">
+      <div class="tc-eyebrow">NOAA CO-OPS</div>
+      <h2>Show a clean tides and currents schedule for your local station.</h2>
+      <p>Set a NOAA CO-OPS station ID and optionally add a custom title for a more local display heading.</p>
+
+      <div class="tc-metrics">
+        <div class="tc-metric">
+          <div class="tc-metric-label">Source</div>
+          <div class="tc-metric-value">NOAA</div>
+          <div class="tc-metric-sub">Official tides and currents data</div>
+        </div>
+        <div class="tc-metric">
+          <div class="tc-metric-label">Input</div>
+          <div class="tc-metric-value">Station ID</div>
+          <div class="tc-metric-sub">Find it from NOAA search or map</div>
+        </div>
+        <div class="tc-metric">
+          <div class="tc-metric-label">Display</div>
+          <div class="tc-metric-value">Schedule</div>
+          <div class="tc-metric-sub">Tide-focused e-ink layout</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tc-section">
+      <div class="tc-section-header">
+        <span class="tc-section-icon" aria-hidden="true">🌊</span>
+        <div class="tc-section-copy">
+          <div class="tc-section-title">Station settings</div>
+          <div class="tc-section-subtitle">Choose your NOAA station and optional display title.</div>
+        </div>
+      </div>
+      <div class="tc-section-body">
+        <div class="tc-grid">
+          <div class="tc-field">
+            <label for="station_id" class="tc-label">NOAA CO-OPS Station ID</label>
+            <input
+              type="text"
+              id="station_id"
+              name="station_id"
+              class="tc-input"
+              placeholder="Enter Station ID (e.g., 8726520)"
+              required
+            />
+            <p class="tc-note">
+              Find your station ID using the
+              <a href="https://tidesandcurrents.noaa.gov/stations.html" target="_blank" rel="noopener noreferrer">
+                NOAA station search
+              </a>
+              or the
+              <a href="https://tidesandcurrents.noaa.gov/map/" target="_blank" rel="noopener noreferrer">
+                NOAA station map </a
+              >.
+            </p>
+          </div>
+
+          <div class="tc-field">
+            <label for="title" class="tc-label">Custom title</label>
+            <input type="text" id="title" name="title" class="tc-input" placeholder="E.g., Local Tide Schedule" />
+            <p class="tc-note">Optional. Leave blank to use the plugin’s default title.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tc-link-card">
+      <a
+        href="https://github.com/shadal18/inkypi-tides-and-currents-schedule"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        github.com/shadal18/inkypi-tides-and-currents-schedule
+      </a>
+      <div class="tc-link-help">Setup help, updates, release notes, and source code.</div>
+    </section>
   </div>
 </div>
 
 <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    if (typeof pluginSettings !== "undefined" && pluginSettings) {
-      const stationId = document.getElementById("station_id")
-      const title = document.getElementById("title")
+    const stationId = document.getElementById("station_id")
+    const title = document.getElementById("title")
 
+    if (typeof pluginSettings !== "undefined" && pluginSettings) {
       if (stationId) {
         stationId.value = pluginSettings.station_id || ""
       }
 
       if (title) {
         title.value = pluginSettings.title || ""
+      }
+    } else {
+      if (stationId) {
+        stationId.value = ""
+      }
+
+      if (title) {
+        title.value = ""
       }
     }
 

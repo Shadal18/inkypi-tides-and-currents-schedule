@@ -1,418 +1,411 @@
 <style>
   :root {
-    --tc-bg: var(--background-color, var(--color-background, #f5f7fb));
-    --tc-bg-soft: var(--card-background-secondary, var(--color-surface-2, #eef2f7));
-    --tc-panel: var(--card-background, var(--color-surface, #ffffff));
-    --tc-panel-2: var(--card-background-hover, var(--color-surface-2, #f8fafc));
-    --tc-border: var(--border-color, rgba(15, 23, 42, 0.12));
-    --tc-text: var(--text-primary, var(--color-text, #0f172a));
-    --tc-text-muted: var(--text-secondary, var(--color-text-secondary, #475569));
-    --tc-text-soft: var(--text-muted, #64748b));
-    --tc-primary: var(--accent-color, #14b8a6);
-    --tc-info: var(--info-color, #3b82f6);
-    --tc-shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.08);
-    --tc-radius-xl: 18px;
-    --tc-radius-lg: 14px;
+    --ink-bg: var(--background-color, var(--color-background, #f5f7fb));
+    --ink-bg-soft: var(--card-background-secondary, var(--color-surface-2, #eef2f7));
+    --ink-panel: var(--card-background, var(--color-surface, #ffffff));
+    --ink-panel-2: var(--card-background-hover, var(--color-surface-2, #f8fafc));
+    --ink-border: var(--border-color, rgba(15, 23, 42, 0.12));
+    --ink-text: var(--text-primary, var(--color-text, #0f172a));
+    --ink-text-muted: var(--text-secondary, var(--color-text-secondary, #475569));
+    --ink-text-soft: var(--text-muted, #64748b);
+    --ink-primary: var(--accent-color, #14b8a6);
+    --ink-info: var(--info-color, #3b82f6);
+    --ink-shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.08);
+    --ink-radius-xl: 18px;
   }
 
   html.dark,
   body.dark,
   [data-theme="dark"],
   html[data-theme="dark"] {
-    --tc-bg: var(--background-color, var(--color-background, #0f172a));
-    --tc-bg-soft: var(--card-background-secondary, var(--color-surface-2, #162033));
-    --tc-panel: var(--card-background, var(--color-surface, #111827));
-    --tc-panel-2: var(--card-background-hover, var(--color-surface-2, #172033));
-    --tc-border: var(--border-color, rgba(255, 255, 255, 0.1));
-    --tc-text: var(--text-primary, var(--color-text, #f8fafc));
-    --tc-text-muted: var(--text-secondary, var(--color-text-secondary, #cbd5e1));
-    --tc-text-soft: var(--text-muted, #94a3b8);
-    --tc-shadow-sm: 0 10px 28px rgba(0, 0, 0, 0.22);
+    --ink-bg: var(--background-color, var(--color-background, #0f172a));
+    --ink-bg-soft: var(--card-background-secondary, var(--color-surface-2, #162033));
+    --ink-panel: var(--card-background, var(--color-surface, #111827));
+    --ink-panel-2: var(--card-background-hover, var(--color-surface-2, #172033));
+    --ink-border: var(--border-color, rgba(255, 255, 255, 0.1));
+    --ink-text: var(--text-primary, var(--color-text, #f8fafc));
+    --ink-text-muted: var(--text-secondary, var(--color-text-secondary, #cbd5e1));
+    --ink-text-soft: var(--text-muted, #94a3b8);
+    --ink-shadow-sm: 0 10px 28px rgba(0, 0, 0, 0.22);
   }
 
   .tide-settings-container {
     width: 100%;
     box-sizing: border-box;
-    color: var(--tc-text);
+    color: var(--ink-text);
   }
 
-  .tc-shell {
+  .ink-shell {
     display: grid;
     gap: 18px;
     margin-top: 8px;
   }
 
-  .tc-hero {
-    position: relative;
+  .ink-hero,
+  .ink-section,
+  .ink-hint-card,
+  .ink-link-card {
     overflow: hidden;
-    border-radius: var(--tc-radius-xl);
-    border: 1px solid var(--tc-border);
-    background:
-      radial-gradient(circle at top right, color-mix(in srgb, var(--tc-primary) 16%, transparent), transparent 34%),
-      radial-gradient(circle at bottom left, color-mix(in srgb, var(--tc-info) 12%, transparent), transparent 30%),
-      linear-gradient(180deg, color-mix(in srgb, var(--tc-panel) 92%, var(--tc-bg-soft) 8%), var(--tc-panel-2));
-    box-shadow: var(--tc-shadow-sm);
-    padding: 22px 22px 18px;
+    border: 1px solid var(--ink-border);
+    border-radius: var(--ink-radius-xl);
+    background: linear-gradient(180deg, var(--ink-panel), var(--ink-panel-2));
+    box-shadow: var(--ink-shadow-sm);
   }
 
-  .tc-eyebrow {
+  .ink-hero {
+    position: relative;
+    padding: 22px;
+    background:
+      radial-gradient(circle at top right, color-mix(in srgb, var(--ink-primary) 16%, transparent), transparent 34%),
+      radial-gradient(circle at bottom left, color-mix(in srgb, var(--ink-info) 12%, transparent), transparent 30%),
+      linear-gradient(180deg, color-mix(in srgb, var(--ink-panel) 92%, var(--ink-bg-soft) 8%), var(--ink-panel-2));
+  }
+
+  .ink-eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     padding: 6px 10px;
+    margin-bottom: 10px;
+    border: 1px solid color-mix(in srgb, var(--ink-primary) 22%, transparent);
     border-radius: 999px;
-    background: color-mix(in srgb, var(--tc-primary) 14%, transparent);
-    color: var(--tc-primary);
+    background: color-mix(in srgb, var(--ink-primary) 14%, transparent);
+    color: var(--ink-primary);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-bottom: 10px;
-    border: 1px solid color-mix(in srgb, var(--tc-primary) 22%, transparent);
   }
 
-  .tc-hero h2 {
+  .ink-hero h2 {
     margin: 0;
-    color: var(--tc-text);
+    color: var(--ink-text);
     font-size: 28px;
-    line-height: 1.05;
+    line-height: 1.08;
     letter-spacing: -0.03em;
   }
 
-  .tc-hero p {
-    margin: 10px 0 0;
+  .ink-hero p {
     max-width: 68ch;
-    color: var(--tc-text-muted);
+    margin: 10px 0 0;
+    color: var(--ink-text-muted);
     font-size: 14px;
     line-height: 1.6;
   }
 
-  .tc-metrics {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 18px;
-  }
-
-  .tc-metric {
-    border: 1px solid var(--tc-border);
-    border-radius: var(--tc-radius-lg);
-    background: color-mix(in srgb, var(--tc-panel) 92%, var(--tc-bg) 8%);
-    padding: 14px 14px 12px;
-    min-width: 0;
-    box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 22%, transparent);
-  }
-
-  .tc-metric-label {
-    color: var(--tc-text-soft);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 8px;
-  }
-
-  .tc-metric-value {
-    color: var(--tc-text);
-    font-size: 28px;
-    line-height: 1;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-  }
-
-  .tc-metric-sub {
-    color: var(--tc-text-muted);
-    font-size: 12px;
-    margin-top: 6px;
-  }
-
-  .tc-section,
-  .tc-link-card {
-    border: 1px solid var(--tc-border);
-    border-radius: var(--tc-radius-xl);
-    background: linear-gradient(180deg, var(--tc-panel), var(--tc-panel-2));
-    box-shadow: var(--tc-shadow-sm);
-    overflow: hidden;
-  }
-
-  .tc-section-header {
+  .ink-section-header {
     display: flex;
     align-items: center;
     gap: 14px;
     padding: 18px 20px;
-    border-bottom: 1px solid var(--tc-border);
+    border-bottom: 1px solid var(--ink-border);
   }
 
-  .tc-section-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 12px;
+  .ink-section-icon,
+  .ink-hint-icon,
+  .ink-link-icon {
     display: inline-flex;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--ink-border);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--ink-bg-soft) 65%, var(--ink-panel) 35%);
     font-size: 18px;
-    flex-shrink: 0;
-    border: 1px solid var(--tc-border);
-    background: color-mix(in srgb, var(--tc-bg-soft) 65%, var(--tc-panel) 35%);
   }
 
-  .tc-section-copy {
+  .ink-section-copy {
     flex: 1;
     min-width: 0;
   }
 
-  .tc-section-title {
-    color: var(--tc-text);
+  .ink-section-title {
+    margin: 0;
+    color: var(--ink-text);
     font-size: 18px;
     font-weight: 700;
     line-height: 1.2;
-    margin: 0;
   }
 
-  .tc-section-subtitle {
-    color: var(--tc-text-muted);
-    font-size: 13px;
+  .ink-section-subtitle {
     margin-top: 4px;
+    color: var(--ink-text-muted);
+    font-size: 13px;
   }
 
-  .tc-section-body {
+  .ink-section-body {
     padding: 18px 20px 20px;
   }
 
-  .tc-grid {
+  .ink-grid {
     display: grid;
     gap: 16px;
   }
 
-  .tc-field {
+  .ink-field {
     display: grid;
-    gap: 8px;
     min-width: 0;
+    gap: 8px;
   }
 
-  .tc-label {
-    color: var(--tc-text-soft);
+  .ink-label {
+    color: var(--ink-text-soft);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
 
-  .tc-input,
+  .ink-input,
   .tide-settings-container input[type="text"] {
+    box-sizing: border-box;
     width: 100%;
     min-height: 46px;
     padding: 0 14px;
+    border: 1px solid var(--ink-border);
     border-radius: 12px;
-    border: 1px solid var(--tc-border);
-    background: var(--tc-panel);
-    color: var(--tc-text);
     outline: none;
-    box-sizing: border-box;
+    background: var(--ink-panel);
+    color: var(--ink-text);
     box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 14%, transparent);
   }
 
-  .tc-input::placeholder,
+  .ink-input::placeholder,
   .tide-settings-container input::placeholder {
-    color: var(--tc-text-soft);
+    color: var(--ink-text-soft);
     opacity: 1;
   }
 
-  .tc-input:focus,
+  .ink-input:focus,
   .tide-settings-container input:focus {
-    border-color: color-mix(in srgb, var(--tc-primary) 45%, transparent);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--tc-primary) 14%, transparent);
+    border-color: color-mix(in srgb, var(--ink-primary) 45%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--ink-primary) 14%, transparent);
   }
 
-  .tc-note {
+  .ink-note {
     margin: 0;
-    color: var(--tc-text-muted);
+    color: var(--ink-text-muted);
     font-size: 12px;
     line-height: 1.6;
   }
 
-  .tc-note a {
-    color: var(--tc-primary);
+  .ink-note a,
+  .ink-link-card a {
+    color: var(--ink-primary);
+    font-weight: 700;
     text-decoration: none;
-    font-weight: 600;
   }
 
-  .tc-note a:hover,
-  .tc-note a:focus-visible {
-    text-decoration: underline;
+  .ink-note a:hover,
+  .ink-note a:focus-visible,
+  .ink-link-card a:hover,
+  .ink-link-card a:focus-visible {
     outline: none;
+    text-decoration: underline;
   }
 
-  .tc-link-card {
+  .ink-hint-card,
+  .ink-link-card {
     padding: 16px 20px;
   }
 
-  .tc-link-card a {
-    color: var(--tc-primary);
-    text-decoration: none;
+  .ink-hint-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .ink-hint-icon {
+    width: 30px;
+    height: 30px;
+    border-color: color-mix(in srgb, var(--ink-primary) 28%, transparent);
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--ink-primary) 14%, transparent);
+    font-size: 16px;
+  }
+
+  .ink-hint-title {
+    margin: 0;
+    color: var(--ink-text);
+    font-size: 14px;
     font-weight: 700;
-    word-break: break-word;
   }
 
-  .tc-link-card a:hover,
-  .tc-link-card a:focus-visible {
-    text-decoration: underline;
-    outline: none;
-  }
-
-  .tc-link-help {
-    margin-top: 8px;
-    color: var(--tc-text-muted);
+  .ink-hint-copy,
+  .ink-link-help {
+    margin: 0;
+    color: var(--ink-text-muted);
     font-size: 12px;
     line-height: 1.6;
+  }
+
+  .ink-link-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ink-link-icon {
+    background: color-mix(in srgb, var(--ink-info) 13%, var(--ink-panel));
+  }
+
+  .ink-link-copy {
+    min-width: 0;
+  }
+
+  .ink-link-card a {
+    display: inline-block;
+    word-break: break-word;
   }
 
   .floatingchat-container-wrap,
   .floatingchat-container-wrap-mobi {
-    left: unset !important;
     right: 16px !important;
-    bottom: 16px !important;
+    bottom: 14px !important;
+    left: unset !important;
   }
 
   .floating-chat-kofi-popup-iframe {
-    left: unset !important;
     right: 16px !important;
     bottom: 76px !important;
-  }
-
-  @media (max-width: 920px) {
-    .tc-metrics {
-      grid-template-columns: 1fr;
-    }
+    left: unset !important;
   }
 
   @media (max-width: 760px) {
-    .tc-hero {
+    .ink-hero {
       padding: 18px;
     }
 
-    .tc-hero h2 {
+    .ink-hero h2 {
       font-size: 22px;
     }
 
-    .tc-section-header {
+    .ink-section-header,
+    .ink-section-body,
+    .ink-hint-card,
+    .ink-link-card {
       padding: 16px;
     }
 
-    .tc-section-body,
-    .tc-link-card {
-      padding: 16px;
+    .ink-link-card {
+      align-items: flex-start;
     }
   }
 </style>
 
 <div class="tide-settings-container">
-  <div class="tc-shell">
-    <section class="tc-hero">
-      <div class="tc-eyebrow">NOAA CO-OPS</div>
+  <div class="ink-shell">
+    <section class="ink-hero">
+      <div class="ink-eyebrow">🌊 NOAA CO-OPS</div>
       <h2>Show a clean tides and currents schedule for your local station.</h2>
-      <p>Set a NOAA CO-OPS station ID and optionally add a custom title for a more local display heading.</p>
-
-      <div class="tc-metrics">
-        <div class="tc-metric">
-          <div class="tc-metric-label">Source</div>
-          <div class="tc-metric-value">NOAA</div>
-          <div class="tc-metric-sub">Official tides and currents data</div>
-        </div>
-        <div class="tc-metric">
-          <div class="tc-metric-label">Input</div>
-          <div class="tc-metric-value">Station ID</div>
-          <div class="tc-metric-sub">Find it from NOAA search or map</div>
-        </div>
-        <div class="tc-metric">
-          <div class="tc-metric-label">Display</div>
-          <div class="tc-metric-value">Schedule</div>
-          <div class="tc-metric-sub">Tide-focused e-ink layout</div>
-        </div>
-      </div>
+      <p>
+        Choose a NOAA CO-OPS station, optionally name the display for your location, and let InkyPi render a clear
+        tide-focused schedule for your e-paper display.
+      </p>
     </section>
 
-    <section class="tc-section">
-      <div class="tc-section-header">
-        <span class="tc-section-icon" aria-hidden="true">🌊</span>
-        <div class="tc-section-copy">
-          <div class="tc-section-title">Station settings</div>
-          <div class="tc-section-subtitle">Choose your NOAA station and optional display title.</div>
+    <section class="ink-hint-card">
+      <div class="ink-hint-heading">
+        <span class="ink-hint-icon" aria-hidden="true">🧭</span>
+        <h3 class="ink-hint-title">Find your station</h3>
+      </div>
+      <p class="ink-hint-copy">
+        Use the NOAA CO-OPS station search or map to find the station nearest your location. Copy its numeric station
+        ID and paste it below.
+      </p>
+      <p class="ink-hint-copy" style="margin-top: 10px">
+        <a href="https://tidesandcurrents.noaa.gov/stations.html" target="_blank" rel="noopener noreferrer">Search NOAA stations</a>
+        &nbsp;·&nbsp;
+        <a href="https://tidesandcurrents.noaa.gov/map/" target="_blank" rel="noopener noreferrer">Open NOAA station map</a>
+      </p>
+    </section>
+
+    <section class="ink-section">
+      <div class="ink-section-header">
+        <span class="ink-section-icon" aria-hidden="true">🌊</span>
+        <div class="ink-section-copy">
+          <h3 class="ink-section-title">Station settings</h3>
+          <div class="ink-section-subtitle">Choose your NOAA station and optional display title.</div>
         </div>
       </div>
-      <div class="tc-section-body">
-        <div class="tc-grid">
-          <div class="tc-field">
-            <label for="station_id" class="tc-label">NOAA CO-OPS Station ID</label>
+
+      <div class="ink-section-body">
+        <div class="ink-grid">
+          <div class="ink-field">
+            <label for="station_id" class="ink-label">NOAA CO-OPS station ID</label>
             <input
               type="text"
               id="station_id"
               name="station_id"
-              class="tc-input"
-              placeholder="Enter Station ID (e.g., 8726520)"
+              class="ink-input"
+              placeholder="8726520"
+              inputmode="numeric"
+              autocomplete="off"
               required
             />
-            <p class="tc-note">
-              Find your station ID using the
-              <a href="https://tidesandcurrents.noaa.gov/stations.html" target="_blank" rel="noopener noreferrer">
-                NOAA station search
-              </a>
-              or the
-              <a href="https://tidesandcurrents.noaa.gov/map/" target="_blank" rel="noopener noreferrer">
-                NOAA station map </a
-              >.
+            <p class="ink-note">
+              Enter the numeric station ID from NOAA, such as <code>8726520</code>.
             </p>
           </div>
 
-          <div class="tc-field">
-            <label for="title" class="tc-label">Custom title</label>
-            <input type="text" id="title" name="title" class="tc-input" placeholder="E.g., Local Tide Schedule" />
-            <p class="tc-note">Optional. Leave blank to use the plugin’s default title.</p>
+          <div class="ink-field">
+            <label for="title" class="ink-label">Custom title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              class="ink-input"
+              placeholder="Local Tide Schedule"
+              maxlength="40"
+            />
+            <p class="ink-note">Optional. Leave blank to use the plugin’s default title.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="tc-link-card">
-      <a
-        href="https://github.com/shadal18/inkypi-tides-and-currents-schedule"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        github.com/shadal18/inkypi-tides-and-currents-schedule
-      </a>
-      <div class="tc-link-help">Setup help, updates, release notes, and source code.</div>
+    <section class="ink-link-card">
+      <span class="ink-link-icon" aria-hidden="true">⌘</span>
+      <div class="ink-link-copy">
+        <a href="https://github.com/shadal18/inkypi-tides-and-currents-schedule" target="_blank" rel="noopener noreferrer">
+          github.com/shadal18/inkypi-tides-and-currents-schedule
+        </a>
+        <div class="ink-link-help">Setup help, updates, release notes, and source code.</div>
+      </div>
     </section>
   </div>
 </div>
 
 <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const stationId = document.getElementById("station_id")
-    const title = document.getElementById("title")
-
-    if (typeof pluginSettings !== "undefined" && pluginSettings) {
-      if (stationId) {
-        stationId.value = pluginSettings.station_id || ""
-      }
-
-      if (title) {
-        title.value = pluginSettings.title || ""
-      }
-    } else {
-      if (stationId) {
-        stationId.value = ""
-      }
-
-      if (title) {
-        title.value = ""
-      }
+  document.addEventListener("DOMContentLoaded", function () {
+    const defaults = {
+      station_id: "",
+      title: "",
     }
 
+    const values =
+      typeof loadPluginSettings !== "undefined" && loadPluginSettings && typeof pluginSettings !== "undefined"
+        ? Object.assign({}, defaults, pluginSettings)
+        : defaults
+
+    Object.keys(defaults).forEach(function (key) {
+      const element = document.getElementById(key)
+      if (element) {
+        element.value = values[key] != null ? values[key] : defaults[key]
+      }
+    })
+
     if (typeof kofiWidgetOverlay !== "undefined") {
+      const messages = ["I ♥ Coffee", "Tip Jar", "Fuel the Pixels", "Buy Me a Coffee", "Keep InkyPi Brewing"]
+      const message = messages[Math.floor(Math.random() * messages.length)]
+
       kofiWidgetOverlay.draw("shadal", {
         type: "floating-chat",
-        "floating-chat.donateButton.text": "Buy Coffee",
+        "floating-chat.donateButton.text": message,
         "floating-chat.donateButton.background-color": "#00b9fe",
         "floating-chat.donateButton.text-color": "#fff",
       })
